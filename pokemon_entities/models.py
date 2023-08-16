@@ -3,7 +3,7 @@ import datetime
 class Pokemon(models.Model):
     title = models.CharField(verbose_name='Название покемона', max_length=200)
     image = models.ImageField(verbose_name='Картинка покемона', null=True, blank=True)
-    description = models.TextField(verbose_name='Описание покемона',blank=True)
+    description = models.TextField(verbose_name='Описание покемона', blank=True)
     title_jp = models.CharField(verbose_name='Японское название покемона', max_length=200, blank=True)
     title_en = models.CharField(verbose_name='Английское название покемона', max_length=200, blank=True)
     previous_evolution = models.ForeignKey(
@@ -21,7 +21,7 @@ class Pokemon(models.Model):
 
 
 class PokemonEntity(models.Model):
-    pokemon = models.ForeignKey(Pokemon, on_delete=models.CASCADE)
+    pokemon = models.ForeignKey(Pokemon, verbose_name='Что за покемон', on_delete=models.CASCADE)
     lat = models.FloatField(verbose_name='Географическая ширина')
     lon = models.FloatField(verbose_name='Географическая высота')
     appeared_at = models.DateTimeField(verbose_name='Время появления', default=datetime.datetime.now())
