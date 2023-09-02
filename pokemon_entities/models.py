@@ -54,4 +54,4 @@ class PokemonEntity(models.Model):
     stamina = models.IntegerField(verbose_name='Стамина')
 
     def __str__(self):
-        return '{}'.format(self.pokemon.title)
+        return self.pokemon.title
