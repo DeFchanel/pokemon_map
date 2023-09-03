@@ -16,10 +16,10 @@ DEFAULT_IMAGE_URL = (
 
 
 def get_pokemon_image_url(request, pokemon):
-    if pokemon.image:
-        return  request.build_absolute_uri(pokemon.image.url)
-    else:
+    if  not pokemon.image:
         return DEFAULT_IMAGE_URL
+    return  request.build_absolute_uri(pokemon.image.url)
+        
 
 
 
@@ -71,11 +71,12 @@ def show_pokemon(request, pokemon_id):
             "pokemon_id": requested_pokemon.previous_evolution.id,
             "img_url": get_pokemon_image_url(request, requested_pokemon.previous_evolution)
         }
-    if requested_pokemon.next_evolutions.count() != 0:
+    evolution = requested_pokemon.next_evolutions.first()
+    if evolution:
         next_evolution_info = {
-            "title_ru": requested_pokemon.next_evolutions.first().title,
-            "pokemon_id": requested_pokemon.next_evolutions.first(),
-            "img_url": get_pokemon_image_url(request, requested_pokemon.next_evolutions.first())
+            "title_ru": evolution.title,
+            "pokemon_id": evolution.first(),
+            "img_url": get_pokemon_image_url(request, evolution)
         }
     pokemon = {
         "pokemon_id": int(pokemon_id),
